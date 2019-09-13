@@ -4,10 +4,10 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
-    "authors": {
+    "authors": [{
         "name": "Danny Villa Kalonji",
         "email": "dannykalonji529@gmail.com"
-    },
+    }],
     "require": {
         "php": ">=7.0.0",
         "laravel/framework": ">=5.5.0"
