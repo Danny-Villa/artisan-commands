@@ -1,0 +1,27 @@
+{
+    "name": "dannyvilla/artisan-commands",
+    "description": "This package provides a set of artisan commands for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": {
+        "name": "Danny Villa Kalonji",
+        "email": "dannykalonji529@gmail.com"
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Davinet\\ArtisanCommand\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Davinet\\ArtisanCommand\\ArtisanCommandServiceProvider"
+            ]
+        }
+    }
+}
