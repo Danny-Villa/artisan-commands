@@ -14,22 +14,22 @@ composer require dannyvilla/artisan-commands
 
 ### Repository command
 #### Generate a empty repository file
-```console
+```bash
 php artisan make:repository User
 ```
 #### Generate a repository with a model
-```console
+```bash
 php artisan make:repository --model=User
 ```
 
 ### View command
 #### Generate a empty view 
-```console
+```bash
 php artisan make:view folder.subfolder.view
 ```
 
 #### Generate a view with a layout
-```console
+```bash
 php artisan make:view folder.subfolder.view --layout=app
 ```
 
