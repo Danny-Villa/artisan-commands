@@ -6,7 +6,7 @@ use Davinet\ArtisanCommand\Commands\Repository;
 use Davinet\ArtisanCommand\Commands\View;
 use Illuminate\Support\ServiceProvider;
 
-class ArtisanCommandServicePovider extends ServiceProvider
+class ArtisanCommandServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
