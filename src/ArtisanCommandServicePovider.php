@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Davinet\ArtisanCommand;
 
 use Davinet\ArtisanCommand\Commands\Repository;
 use Davinet\ArtisanCommand\Commands\View;
