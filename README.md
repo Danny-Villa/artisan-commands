@@ -15,11 +15,11 @@ composer require dannyvilla/artisan-commands
 ### Repository command
 #### Generate a empty repository file
 ```bash
-php artisan make:repository User
+php artisan make:repository UserRepository
 ```
 #### Generate a repository with a model
 ```bash
-php artisan make:repository --model=User
+php artisan make:repository UserRepository --model=User
 ```
 
 ### View command
