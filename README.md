@@ -33,6 +33,23 @@ php artisan make:view folder.subfolder.view
 php artisan make:view folder.subfolder.view --layout=app
 ```
 
+### Lang command
+#### Generate a new locale file 
+```bash
+php artisan make:lang myFilanem --locale=es
+```
+
+#### Generate a new json locale file
+```bash
+php artisan make:lang --locale=es --json
+```
+
+### File command
+#### Generate a generic file 
+```bash
+php artisan make:file folder.subfolder1.subfolder2.filename --ext=php
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

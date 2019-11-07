@@ -82,8 +82,8 @@ class View extends Command
             $replaceIfNecessary = true;
             if (file_exists($filename)) {
                 do {
-                    $input = $this->ask("There is a view with this name do you want to replace it ? [o/n] ");
-                } while (strtolower($input) != 'o' && strtolower($input) != 'n');
+                    $input = $this->ask("There is a view with this name do you want to replace it ? [y/n] ");
+                } while (strtolower($input) != 'y' && strtolower($input) != 'n');
 
                 if('n' == strtolower($input))
                     $replaceIfNecessary = false;
