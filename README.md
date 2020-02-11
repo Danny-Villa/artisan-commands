@@ -4,7 +4,7 @@ This package provides a set of new artisan commands for Laravel
 
 ## Installation
 
-Use the package manager [composer](https://getcomposer.org/) to install Simtoken.
+Use the package manager [composer](https://getcomposer.org/) to install dannyvilla/artisan-commands
 
 ```bash
 composer require dannyvilla/artisan-commands
