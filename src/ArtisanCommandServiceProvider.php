@@ -2,6 +2,7 @@
 
 namespace Davinet\ArtisanCommand;
 
+use Davinet\ArtisanCommand\Commands\ClassMakeCommand;
 use Davinet\ArtisanCommand\Commands\File;
 use Davinet\ArtisanCommand\Commands\Lang;
 use Davinet\ArtisanCommand\Commands\Repository;
@@ -23,6 +24,7 @@ class ArtisanCommandServiceProvider extends ServiceProvider
                 View::class,
                 File::class,
                 Lang::class,
+                ClassMakeCommand::class,
             ]);
         }
     }
