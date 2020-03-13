@@ -36,16 +36,16 @@ class File extends Command
     {
         parent::__construct();
     }
-
+    
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
         if ($this->isCorrectFilename($this->argument('filename'))) {
-            $extension = $this->hasOption('ext') ? (Str::startsWith($this->option('ext'), '.') ? substr($this->option('ext'), '1') : $this->option('ext')) : 'php';
+            $extension = $this->getExtension();
             $path = base_path(str_replace('.', '/', $this->argument('filename')).'.'.$extension);
 
             if ($this->replaceExistingFile($path, 'There is already a file with this name do you want to replace it ? [y/n]')) {
@@ -58,6 +58,22 @@ class File extends Command
             }
         } else
             $this->error('The filename is not correct.');
+    }
+
+    /**
+     * Get the file extension specified by the option.
+     * PHP is considered as the default extension.
+     *
+     * @return string
+     */
+    protected function getExtension()
+    {
+        if ($this->hasOption('ext') && $this->option('ext') !== null)
+            if (Str::startsWith($this->option('ext'), '.'))
+                return Str::replaceFirst('.', '', $this->option('ext'));
+            else
+                return $this->option('ext');
+        return 'php';
     }
 
     /**
