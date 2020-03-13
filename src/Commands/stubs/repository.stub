@@ -33,7 +33,7 @@ class DummyClass
      */
     public function getById($id)
     {
-        return $this->DummyProperty->findorFail($id);
+        return $this->DummyProperty->findOrFail($id);
     }
 
     /**
@@ -67,7 +67,7 @@ class DummyClass
     }
 
     /**
-     * Retrieve a DummyProperty from database by a given field according to a given value.
+     * Retrieve a DummyProperty from database by a field according to a given value.
      *
      * @return DummyModel
      */
