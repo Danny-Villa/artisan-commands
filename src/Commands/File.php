@@ -36,7 +36,7 @@ class File extends Command
     {
         parent::__construct();
     }
-    
+
     /**
      * Execute the console command.
      *
@@ -101,7 +101,7 @@ class File extends Command
      */
     protected function isCorrectFilename($name)
     {
-        return (bool) preg_match('#^[a-zAZ][a-zA-Z0-9._\-]+$#', $name);
+        return (bool) preg_match('#^[a-zA-Z][a-zA-Z0-9._\-]+$#', $name);
     }
 
     /**

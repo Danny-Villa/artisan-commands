@@ -44,6 +44,26 @@ php artisan make:lang myFilanem --locale=es
 php artisan make:lang --locale=es --json
 ```
 
+### Class command
+#### Generate a class
+```bash
+php artisan make:class App\Handlers\UserHandlers
+```
+or you can use a dot(.) as separator
+```bash
+php artisan make:class App.Handlers.UserHandlers --separator=.
+```
+
+#### Generate a trait 
+```bash
+php artisan make:class App\Traits\MyTrait --kind=trait
+```
+
+#### Generate an interface
+```bash
+php artisan make:class App\Contracts\IClassable --kind=interface
+```
+
 ### File command
 #### Generate a generic file 
 ```bash

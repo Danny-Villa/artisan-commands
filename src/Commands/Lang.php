@@ -130,6 +130,6 @@ class Lang extends Command
      */
     protected function nameIsCorrect($name)
     {
-        return (bool) preg_match('#^[a-zAZ][a-zA-Z0-9]+$#', $name);
+        return (bool) preg_match('#^[a-zA-Z][a-zA-Z0-9]+$#', $name);
     }
 }
