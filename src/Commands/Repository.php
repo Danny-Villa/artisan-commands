@@ -3,6 +3,7 @@
 namespace Davinet\ArtisanCommand\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class Repository extends Command
@@ -73,7 +74,7 @@ class Repository extends Command
      */
     protected function replacePropertyName($name, $stub)
     {
-        $property = lcfirst(camel_case($name));
+        $property = lcfirst(Str::camel($name));
         return str_replace('DummyProperty', $property, $stub);
     }
 
@@ -125,7 +126,7 @@ class Repository extends Command
     protected function setModelAndNamespace(&$model, &$namespace)
     {
         $exploded = explode('\\', $model);
-        $model = array_last($exploded);
+        $model = Arr::last($exploded);
         $namespace = '';
 
         for ($i = 0; $i < count($exploded) - 1; $i++)
