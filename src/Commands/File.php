@@ -18,7 +18,7 @@ class File extends Command
      *
      * @var string
      */
-    protected $signature = 'make:file {filename} {--ext= :The file extension. By default is php}';
+    protected $signature = 'make:file {filename} {--ext= : The file extension. By default is php}';
 
     /**
      * The console command description.
