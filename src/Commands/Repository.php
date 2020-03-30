@@ -3,6 +3,7 @@
 namespace Davinet\ArtisanCommand\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class Repository extends Command
 {
@@ -90,6 +91,18 @@ class Repository extends Command
     }
 
     /**
+     * Replace the namespace of the namespace of the model.
+     *
+     * @param $namespace
+     * @param $stub
+     * @return mixed
+     */
+    protected function replaceModelNamespace($namespace, $stub)
+    {
+        return str_replace('DummyModelNamespace', ucfirst($namespace), $stub);
+    }
+
+    /**
      * Rewrite actually the content in the file.
      *
      * @param $filename
@@ -103,6 +116,36 @@ class Repository extends Command
     }
 
     /**
+     * Set the right name and namespace.
+     *
+     * @param $model
+     * @param $namespace
+     * @return void
+     */
+    protected function setModelAndNamespace(&$model, &$namespace)
+    {
+        $exploded = explode('\\', $model);
+        $model = array_last($exploded);
+        $namespace = '';
+
+        for ($i = 0; $i < count($exploded) - 1; $i++)
+            $namespace .= $exploded[$i].'\\';
+
+        $namespace = Str::replaceLast('\\','', $namespace);
+    }
+
+    /**
+     * Check if a model file exists.
+     *
+     * @param $model
+     * @return bool
+     */
+    protected function modelFileExists($model)
+    {
+        return file_exists( base_path(lcfirst($model).'.php'));
+    }
+
+    /**
      * Execute the console command.
      *
      * @return void
@@ -111,32 +154,45 @@ class Repository extends Command
     {
         $name = $this->argument('name');
         $model = $this->option('model');
-
+        $namespace = 'App';
         if (empty($name)) {
             $this->error('Please the name of the repository is expected.');
         } else {
-            if ((empty($model) || !isset($model)) || (!file_exists(app_path('/'.$model.'.php')))) {
+            $content = null;
+
+            if (is_null($model)) {
                 $content = $this->replaceClassName($name, $this->getEmptyStub());
             } else {
-                $content = $this->replaceClassName($name, $this->getStub());
-                $content = $this->replaceModelName($model, $content);
-                $content = $this->replacePropertyName($model, $content);
+                if (Str::contains($model, '\\')) {
+                    $this->setModelAndNamespace($model, $namespace);
+                }
+
+                if ($this->modelFileExists($namespace.'\\'.$model)) {
+                    $content = $this->replaceModelNamespace($namespace, $this->getStub());
+                    $content = $this->replaceModelName($model, $content);
+                    $content = $this->replacePropertyName($model, $content);
+                    $content = $this->replaceClassName($name, $content);
+                } else {
+                    $this->output->error('The specified model "'.$this->option('model').'" does not exist.');
+                }
             }
 
-            $filename = app_path('Repositories/'.ucfirst($name).'.php');
+            if (!is_null($content)) {
+                $filename = app_path('Repositories/'.ucfirst($name).'.php');
 
-            if (file_exists($filename)) {
-                do {
-                    $input = $this->ask("There is a repository with this name ($name) do you want to replace it ? [o/n] ");
-                } while (strtolower($input) != 'o' && strtolower($input) != 'n');
+                if (file_exists($filename)) {
+                    do {
+                        $input = $this->ask("There is a repository with this name ($name) do you want to replace it ? [o/n] ");
+                    } while (strtolower($input) != 'o' && strtolower($input) != 'n');
 
-                if('o' == strtolower($input)){
+                    if('o' == strtolower($input)){
+                        $this->putInFile($filename, $content);
+                        $this->info('Reporitory created successfully.');
+                    }
+                } else {
                     $this->putInFile($filename, $content);
                     $this->info('Reporitory created successfully.');
                 }
-            } else {
-                $this->putInFile($filename, $content);
-                $this->info('Reporitory created successfully.');
             }
         }
     }

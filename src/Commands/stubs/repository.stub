@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DummyModel;
+use DummyModelNamespace\DummyModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
