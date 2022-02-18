@@ -125,7 +125,7 @@ class Repository extends Command
      */
     protected function setModelAndNamespace(&$model, &$namespace)
     {
-        $exploded = explode('\\', $model);
+        $exploded = str_contains($model, '/') ? explode('/', $model) : explode('\\', $model);
         $model = Arr::last($exploded);
         $namespace = '';
 
@@ -143,7 +143,7 @@ class Repository extends Command
      */
     protected function modelFileExists($model)
     {
-        return file_exists( base_path(lcfirst($model).'.php'));
+        return file_exists( base_path(lcfirst($model).'.php')) || file_exists( base_path(lcfirst(str_replace('\\', '/', $model)).'.php'));
     }
 
     /**
@@ -164,7 +164,7 @@ class Repository extends Command
             if (is_null($model)) {
                 $content = $this->replaceClassName($name, $this->getEmptyStub());
             } else {
-                if (Str::contains($model, '\\')) {
+                if (Str::contains($model, ['\\', '/'])) {
                     $this->setModelAndNamespace($model, $namespace);
                 }
 
