@@ -47,19 +47,21 @@ class ClassMakeCommand extends Command
     public function handle()
     {
         if ($this->isCorrectFilename($this->argument('filename'))) {
-            $separator = $this->getSeparator();
             $kind = $this->getKind();
 
-            if ($separator !== null && $kind !== null) {
-                $path = base_path(str_replace($separator, '/', $this->argument('filename')) . '.php');
+            if ($kind !== null) {
+                $path = base_path($this->argument('filename') . '.php');
 
                 if ($this->replaceExistingFile($path, 'There is already a file with this name do you want to replace it ? [y/n]')) {
-                    $filename = explode($separator, $this->argument('filename'));
+                    $filename = str_contains($this->argument('filename'), '/')
+                        ? explode('/', $this->argument('filename'))
+                        : explode('\\', $this->argument('filename'));
 
                     $this->createFoldersIfNecessary($filename);
                     $stub = $this->getStub($kind);
                     $stub = $this->replaceKindName($kind, $filename[count($filename) - 1], $stub);
                     $namespace = '';
+
                     for ($i = 0; $i < count($filename) - 1; $i++)
                         $namespace .= ucfirst($filename[$i]).'\\';
 
@@ -139,7 +141,12 @@ class ClassMakeCommand extends Command
     protected function replaceExistingFile($filename, $question)
     {
         $replaceExistingFile = true;
-        if (file_exists($filename)) {
+
+        $otherPath = str_contains($filename, '\\')
+            ? str_replace('\\', '/', $filename)
+            : str_replace('/', '\\', $filename);
+
+        if (file_exists($filename) || file_exists($otherPath)) {
             do {
                 $input = $this->ask($question);
             } while (strtolower($input) != 'y' && strtolower($input) != 'n');
