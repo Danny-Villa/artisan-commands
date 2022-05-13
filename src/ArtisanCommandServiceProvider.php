@@ -6,6 +6,7 @@ use Davinet\ArtisanCommand\Commands\ClassMakeCommand;
 use Davinet\ArtisanCommand\Commands\File;
 use Davinet\ArtisanCommand\Commands\Lang;
 use Davinet\ArtisanCommand\Commands\Repository;
+use Davinet\ArtisanCommand\Commands\Service;
 use Davinet\ArtisanCommand\Commands\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,7 +25,9 @@ class ArtisanCommandServiceProvider extends ServiceProvider
                 View::class,
                 File::class,
                 Lang::class,
+                Service::class,
                 ClassMakeCommand::class,
+
             ]);
         }
     }

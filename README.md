@@ -37,6 +37,12 @@ OR
 php artisan make:repository UserRepository --model=App\Models\User
 ```
 
+### Service command
+#### Generate a serfvice class
+```bash
+php artisan make:service PayPalPaymentService
+```
+
 ### Lang command
 #### Generate a new locale file 
 ```bash
